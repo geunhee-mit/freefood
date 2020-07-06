@@ -37,7 +37,7 @@
           var popup = new mapboxgl.Popup({ offset: [0, -15] })
             .setLngLat(feature.geometry.coordinates)
             // .setHTML('<h3>' + feature.properties.시설명 + '</h3><p>' + feature.properties.급식시간 + '</p>')
-            .setHTML('<h3>' + feature.properties.시설명 + '</h3><p>' + feature.properties.급식대상 + '</p><p>' + feature.properties.급식시간 + '</p></p>' + feature.properties.급식요일 + '</p>')
+            .setHTML('<h3>' + feature.properties.시설명 + '</h3><p>' + '대상: '+ feature.properties.급식대상 + '</p><p>' + '배식 시간: '+ feature.properties.급식시간 + '</p><p>' + '요일: '+ feature.properties.급식요일 + '</p><p>' + '전화번호: ' + feature.properties.전화번호 + '</p>')
             .addTo(map);
         });
 
