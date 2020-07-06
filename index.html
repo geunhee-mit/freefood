@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Add a default marker</title>
+<title>전국 무료 급식소 현황</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css" rel="stylesheet" />
@@ -18,14 +18,29 @@
 	mapboxgl.accessToken = 'pk.eyJ1IjoiZ2V1bmhlZS1taXQiLCJhIjoiY2s4ZjBvc3JkMDF5MDNsc3k4ZXZpc3phdyJ9.ubTF4v5-Sr3trIe0ytzIZQ';
     var map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [12.550343, 55.665957],
-        zoom: 8
+        style: 'mapbox://styles/geunhee-mit/ckbv9hl6u18y71io40iz3fhqw',
+        center: { lon: 127.48806, lat: 35.89449 },
+        zoom: 6.54
     });
 
-    var marker = new mapboxgl.Marker()
-        .setLngLat([12.550343, 55.665957])
-        .addTo(map);
+        map.on('click', function(e) {
+          var features = map.queryRenderedFeatures(e.point, {
+            layers: ['clean-8oimrg'] // replace this with the name of the layer
+          });
+
+          if (!features.length) {
+            return;
+          }
+
+          var feature = features[0];
+
+          var popup = new mapboxgl.Popup({ offset: [0, -15] })
+            .setLngLat(feature.geometry.coordinates)
+            // .setHTML('<h3>' + feature.properties.시설명 + '</h3><p>' + feature.properties.급식시간 + '</p>')
+            .setHTML('<h3>' + feature.properties.시설명 + '</h3><p>' + feature.properties.급식대상 + '</p><p>' + feature.properties.급식시간 + '</p></p>' + feature.properties.급식요일 + '</p>')
+            .addTo(map);
+        });
+
 </script>
 
 </body>
